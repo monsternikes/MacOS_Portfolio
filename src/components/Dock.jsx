@@ -4,10 +4,13 @@ import gsap from "gsap";
 
 import { dockApps } from "#constants/index.js";
 import { useGSAP } from "@gsap/react";
+import useWindowStore from "#store/window.js";
 
 const Dock = () => {
+  const { openWindow, closeWindow, windows } = useWindowStore();  
   const dockRef = useRef(null);
 
+  //generally just animating the dock icons
   useGSAP(() => {
     const dock = dockRef.current;
     if(!dock) return;
@@ -58,9 +61,27 @@ const Dock = () => {
     };
   }, []);
 
-  
-    const toggleApp = (app) => {};
+    //make the toggle app function that is called by pressing the buttons in the dock below
+    const toggleApp = (app) => {
+        if(!app.canOpen) return;
 
+        const window = windows[app.id];
+
+        if(!window) {
+            console.error(`Window not found for app: ${app.id}`);
+            return;
+        }
+
+        if (window.isOpen){
+            closeWindow(app.id);
+        } else {
+            openWindow(app.id);
+        }
+
+        console.log(windows);
+    };
+
+    //makes the actual icons to display and aligns them properly + gives them tooltip
     return(
         <section id="dock">
             <div ref={dockRef} className="dock-container">
