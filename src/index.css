@@ -17,6 +17,11 @@ body {
   --font-georama: "Georama", sans-serif;
   --font-roboto: "Roboto Mono", monospace;
   --breakpoint-3xl: 1920px;
+  --spacing-md: 28rem;
+  --spacing-xl: 36rem;
+  --spacing-3xl: 56rem;
+  --spacing-4xl: 64rem;
+
 }
 
 @utility flex-center {
